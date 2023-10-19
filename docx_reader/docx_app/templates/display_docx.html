@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <!-- Include any necessary CSS or styling here -->
+    <style>
+        .equation {
+            margin: 10px 0;
+        }
+        .image {
+            max-width: 100%;
+        }
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Document Content</h1>
+    <div>
+        {% for item_type, item_content in content %}
+            {% if item_type == "text" %}
+                <p>{{ item_content }}</p>
+            {% elif item_type == "equation" %}
+                <div class="equation">
+                    {% autoescape off %}{{ item_content }}{% endautoescape %}
+                </div>
+            {% elif item_type == "image" %}
+                <div class="image">
+                    <img src="{{ item_content }}" alt="Image">
+                </div>
+            {% elif item_type == "table" %}
+                <table class="table">
+                    {% for row in item_content %}
+                        <tr>
+                            {% for cell in row %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
